@@ -3,10 +3,9 @@
 set -e
 
 # Получает текущую рабочую директорию проекта.
-CURRENT_DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+CURRENT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
 
-print_help()
-{
+print_help() {
   echo "-s, --set-version               указать номер версии"
   echo "-h, --help                      отобразить текущую помощь"
 }
@@ -14,20 +13,28 @@ print_help()
 # Обработчик аргументов
 while [[ "$#" -gt 0 ]]; do
   case "${1}" in
-    -s|--set-version) export VERSION="${2}"; shift; shift ;;
-    -h|--help) print_help; exit 1 ;;
-    *) echo "Неизвестный параметр: $1"; exit 1 ;;
+  -s | --set-version)
+    export VERSION="${2}"
+    shift
+    shift
+    ;;
+  -h | --help)
+    print_help
+    exit 1
+    ;;
+  *)
+    echo "Неизвестный параметр: $1"
+    exit 1
+    ;;
 
   esac
 done
 
-build()
-{
-echo "$VERSION"
+build() {
+  echo "Version number is $VERSION"
 }
 
-main()
-{
+main() {
   if [ ${VERSION} ]; then
     build
   fi
